@@ -28,10 +28,14 @@ equal()(
   [ $? -eq 0 ] && _pass "$_text" || _fail "$_text" || echo "$diff" | _indent
 )
 
-scenario Ansi
+scenario Red
   output _ansi --red "Red"
   should be equal "$(printf "\e[31m%s\e[39m" "Red")"
 
 scenario "Ansifilter"
   output _ansifilter "$(printf "\e[31m%s\e[39m" "Red")"
   should be equal "Red"
+
+scenario "Bold"
+  output _ansi --bold Bold
+  should be equal "$(printf "\e[1m%s\e[22m" "Bold")"
