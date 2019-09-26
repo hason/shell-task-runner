@@ -1,7 +1,9 @@
 Shell Task Runner
 =================
 
-Simple, lightweight, self-documented task runner for POSIX Shell.
+https://github.com/webuni/shell-task-runner
+
+Simple, lightweight, self-documented task runner for any shell.
 Compatible with ash, bash, dash, Linux, Mac OS, alpine, docker.
 
 Usage
