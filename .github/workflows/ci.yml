@@ -1,16 +1,35 @@
 on: push
 jobs:
-  test:
-    runs-on: ${{ matrix.os }}
+  linux:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
-    name: Test on ${{ matrix.os }}
+        shell: [bash, dash, ash, mksh]
+    name: Test on Ubuntu in ${{ matrix.shell }}
+    steps:
+      - name: Checks out a copy of your repository
+        uses: actions/checkout@v1
+      - name: Install ${{ matrix.shell }}
+        run: sudo apt-get install ${{ matrix.shell }}
+      - name: Run tests
+        run: ${{ matrix.shell }} ./tests/ansi.sh
+
+  mac:
+    runs-on: macOS-latest
+    name: Test on MacOS
     steps:
       - name: Checks out a copy of your repository
         uses: actions/checkout@v1
       - name: Run tests
         run: ./tests/ansi.sh
-        id: tests
-      - name: Echo the greeting's time
-        run: echo 'The time was ${{ steps.tests.outputs.time }}.'
+
+  windows:
+    runs-on: windows-latest
+    name: Test on Windows
+    steps:
+      - name: Checks out a copy of your repository
+        uses: actions/checkout@v1
+      - name: Download busybox
+        run: powershell -Command "(New-Object Net.WebClient).DownloadFile('https://frippery.org/files/busybox/busybox.exe', 'busybox.exe')"
+      - name: Run tests
+        run: busybox.exe sh ./tests/ansi.sh
