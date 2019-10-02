@@ -95,7 +95,7 @@ __fn _printf_escape || _printf_escape()(
 )
 
 __fn _ansifilter || _ansifilter()(
-    _print "$1" | sed -E 's/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g'
+    _print "$1" | awk '{gsub(/\x1B\[[0-9;]+[mGKFH]/, "");}1'
 )
 
 __fn _stty || _stty()(

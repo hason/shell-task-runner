@@ -12,30 +12,30 @@ scenario(){
 }
 
 output(){
-  _value="$(eval "$@")"
+  _value="$("$@")"
 }
 
 should()(
-  eval "$@"
+  "$@"
 )
 
 be()(
-  eval "$@"
+  "$@"
 )
 
 equal()(
-  diff="$(_diff "$_value" "$1")"
+  diff="$(_diff "$1" "$_value")"
   [ $? -eq 0 ] && _pass "$_text" || _fail "$_text" || echo "$diff" | _indent
 )
 
 scenario Red
-  output _ansi --red "Red"
-  should be equal "$(printf "\e[31m%s\e[39m" "Red")"
+  output _ansi --red "Red color"
+  should be equal "$(printf "\e[31m%s\e[39m" "Red color")"
 
 scenario "Ansifilter"
-  output _ansifilter "$(printf "\e[31m%s\e[39m" "Red")"
-  should be equal "Red"
+  output _ansifilter "$(printf "\e[31m%s\e[39m color" "Red")"
+  should be equal "Red color"
 
 scenario "Bold"
-  output _ansi --bold Bold
-  should be equal "$(printf "\e[1m%s\e[22m" "Bold")"
+  output _ansi --bold "Bold text"
+  should be equal "$(printf "\e[1m%s\e[22m" "Bold text")"
