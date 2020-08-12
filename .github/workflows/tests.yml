@@ -16,6 +16,15 @@ jobs:
       - name: Run tests
         run: ${{ matrix.shell }} ./tests/ansi.sh
 
+  alpine:
+    runs-on: ubuntu-latest
+    name: Alpine Linux
+    steps:
+      - name: Checks out a copy of your repository
+        uses: actions/checkout@v2
+      - name: Run sh
+        run: docker run --rm -it alpine:latest sh ./tests/ansi.sh
+
   mac:
     runs-on: macOS-latest
     name: MacOS
