@@ -14,8 +14,7 @@ jobs:
       - name: Install ${{ matrix.shell }}
         run: sudo apt-get install ${{ matrix.shell }}
       - name: Run tests
-        shell: ${{ matrix.shell }}
-        run: ./tests/ansi.sh
+        run: chmod a-x ./tests/ansi.sh && ${{ matrix.shell }} ./tests/ansi.sh
 
   alpine:
     runs-on: ubuntu-latest
