@@ -1,14 +1,16 @@
+name: Run tests
 on: push
+
 jobs:
   linux:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         shell: [bash, dash, ash, mksh]
-    name: Test on Ubuntu in ${{ matrix.shell }}
+    name: Ubuntu in ${{ matrix.shell }}
     steps:
       - name: Checks out a copy of your repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Install ${{ matrix.shell }}
         run: sudo apt-get install ${{ matrix.shell }}
       - name: Run tests
@@ -16,19 +18,19 @@ jobs:
 
   mac:
     runs-on: macOS-latest
-    name: Test on MacOS
+    name: MacOS
     steps:
       - name: Checks out a copy of your repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Run tests
         run: ./tests/ansi.sh
 
   windows:
     runs-on: windows-latest
-    name: Test on Windows
+    name: Windows
     steps:
       - name: Checks out a copy of your repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Download busybox
         run: powershell -Command "(New-Object Net.WebClient).DownloadFile('https://frippery.org/files/busybox/busybox.exe', 'busybox.exe')"
       - name: Run tests
