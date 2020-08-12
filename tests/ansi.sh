@@ -28,6 +28,10 @@ equal()(
   [ $? -eq 0 ] && _pass "$_text" || _fail "$_text" || echo "$diff" | _indent
 )
 
+ps -p $$
+echo "$SHELL"
+if [[ "x" = "x" ]]; then echo "bash"; fi
+
 scenario Red
   output _ansi --red "Red color"
   should be equal "$(printf "\e[31m%s\e[39m" "Red color")"

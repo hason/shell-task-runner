@@ -23,7 +23,7 @@ jobs:
       - name: Checks out a copy of your repository
         uses: actions/checkout@v2
       - name: Run sh
-        run: docker run --rm alpine:latest sh ./tests/ansi.sh
+        run: docker run --rm -v "`pwd`:`pwd`" -w "`pwd`" alpine:latest sh ./tests/ansi.sh
 
   mac:
     runs-on: macOS-latest
@@ -43,8 +43,6 @@ jobs:
       - name: Download busybox
         shell: powershell
         run: (New-Object Net.WebClient).DownloadFile('https://frippery.org/files/busybox/busybox.exe', 'busybox.exe')
-      - name: List files
-        run: dir
       - name: Run tests
         shell: cmd
         run: busybox.exe sh ./tests/ansi.sh
