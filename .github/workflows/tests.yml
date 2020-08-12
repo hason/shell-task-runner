@@ -14,7 +14,8 @@ jobs:
       - name: Install ${{ matrix.shell }}
         run: sudo apt-get install ${{ matrix.shell }}
       - name: Run tests
-        run: ${{ matrix.shell }} ./tests/ansi.sh
+        shell: ${{ matrix.shell }}
+        run: ./tests/ansi.sh
 
   alpine:
     runs-on: ubuntu-latest
@@ -42,5 +43,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Download busybox
         run: powershell -Command "(New-Object Net.WebClient).DownloadFile('https://frippery.org/files/busybox/busybox.exe', 'busybox.exe')"
+      - name: List files
+        run: dir
       - name: Run tests
         run: busybox.exe sh ./tests/ansi.sh
